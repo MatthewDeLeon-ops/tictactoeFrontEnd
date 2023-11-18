@@ -1,4 +1,5 @@
 import React from 'react'
+import '../components/cellsStyle.css'
 
 class Grid extends React.Component {
   render() {
