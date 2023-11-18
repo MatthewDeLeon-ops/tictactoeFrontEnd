@@ -28,20 +28,40 @@ const TilesComponent: React.FC<squareBlocks> = ({ children }) => {
   return <div style={squareStyle}>{children}</div>
 }
 
-const ParentComponent = () => {
+interface RowProps {
+  children: React.ReactNode
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const RowComponent: React.FC<RowProps> = ({ children }) => {
+  const rowStyle: React.CSSProperties = {
+    clear: 'both',
+    display: 'flex', // Ensure that the squares are in a row
+  }
+
+  return <div style={rowStyle}>{children}</div>
+}
+
+const Layout = () => {
   return (
     <div>
-      <TilesComponent>Square 1</TilesComponent>
-      <TilesComponent>Square 2</TilesComponent>
-      <TilesComponent>Square 3</TilesComponent>
-      <TilesComponent>Square 4</TilesComponent>
-      <TilesComponent>Square 5</TilesComponent>
-      <TilesComponent>Square 6</TilesComponent>
-      <TilesComponent>Square 7</TilesComponent>
-      <TilesComponent>Square 8</TilesComponent>
-      <TilesComponent>Square 9</TilesComponent>
+      <RowComponent>
+        <TilesComponent>Square 1</TilesComponent>
+        <TilesComponent>Square 2</TilesComponent>
+        <TilesComponent>Square 3</TilesComponent>
+      </RowComponent>
+      <RowComponent>
+        <TilesComponent>Square 4</TilesComponent>
+        <TilesComponent>Square 5</TilesComponent>
+        <TilesComponent>Square 6</TilesComponent>
+      </RowComponent>
+      <RowComponent>
+        <TilesComponent>Square 7</TilesComponent>
+        <TilesComponent>Square 8</TilesComponent>
+        <TilesComponent>Square 9</TilesComponent>
+      </RowComponent>
     </div>
   )
 }
 
-export default ParentComponent
+export default Layout
