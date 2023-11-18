@@ -17,12 +17,13 @@ const TilesComponent: React.FC<squareBlocks> = ({ children }) => {
   const squareStyle: CSSProperties = {
     width: '100px',
     height: '100px',
-    backgroundColor: 'grey',
+    backgroundColor: 'green', // Add the green background color here
     margin: '5px',
     display: 'inline-block',
     textAlign: 'center',
     lineHeight: '100px',
     color: 'black',
+    border: '5px solid black',
   }
 
   return <div style={squareStyle}>{children}</div>
@@ -46,19 +47,19 @@ const Layout = () => {
   return (
     <div>
       <RowComponent>
-        <TilesComponent>Square 1</TilesComponent>
-        <TilesComponent>Square 2</TilesComponent>
-        <TilesComponent>Square 3</TilesComponent>
+        <TilesComponent> </TilesComponent>
+        <TilesComponent> </TilesComponent>
+        <TilesComponent> </TilesComponent>
       </RowComponent>
       <RowComponent>
-        <TilesComponent>Square 4</TilesComponent>
-        <TilesComponent>Square 5</TilesComponent>
-        <TilesComponent>Square 6</TilesComponent>
+        <TilesComponent> </TilesComponent>
+        <TilesComponent> </TilesComponent>
+        <TilesComponent> </TilesComponent>
       </RowComponent>
       <RowComponent>
-        <TilesComponent>Square 7</TilesComponent>
-        <TilesComponent>Square 8</TilesComponent>
-        <TilesComponent>Square 9</TilesComponent>
+        <TilesComponent> </TilesComponent>
+        <TilesComponent> </TilesComponent>
+        <TilesComponent> </TilesComponent>
       </RowComponent>
     </div>
   )
