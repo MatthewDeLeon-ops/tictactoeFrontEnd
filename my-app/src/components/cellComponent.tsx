@@ -1,7 +1,8 @@
 //!  React, component names must start with a capital letter
 
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useState } from 'react'
 import '../components/cellsStyle.css'
+
 /* //* Using cellStyles.css for styling my components */
 
 interface squareBlocks {
@@ -16,7 +17,37 @@ interface RowProps {
 //! The hover effect defined in my css file is applied to all elements with the class tiles, including those in my TilesComponent*/
 
 const TilesComponent: React.FC<squareBlocks> = ({ children }) => {
-  return <div className="tiles">{children}</div>
+  // State to track whether "X" should be drawn
+  const [drawX, setDrawX] = useState<boolean>(false)
+  const [drawO, setDrawO] = useState<boolean>(false)
+  // handleClick function to draw "X"
+  const handleClick = () => {
+    // Toggle between "X" and "O" on each click
+    if (drawX) {
+      setDrawO(true)
+      setDrawX(false)
+    } else if (drawO) {
+      setDrawX(true)
+      setDrawO(false)
+    } else {
+      // Initial click, default to "X"
+      setDrawX(true)
+    }
+  }
+
+  // Style for drawing "X"
+  const inputStyle: React.CSSProperties = {
+    color: 'white',
+    fontSize: '10mm',
+  }
+
+  return (
+    <div className="tiles" onClick={handleClick}>
+      {drawX ? <span style={inputStyle}>X</span> : null}
+      {drawO ? <span style={inputStyle}>O</span> : null}
+      {children}
+    </div>
+  )
 }
 
 //? Renders a <div> with a style object defining display properties. This functionally ensures that the squares are displayed in a row. */
@@ -56,7 +87,6 @@ const Layout = () => {
 
 export default Layout
 
-/* //* idea for implementing win loss condition */
 /*
 ? Create Logic for the ordered Tiles for win/lose conditions
 ? ACROSS Tiles: [1,2,3] [4,5,6] [7,8,9]   [x or o] 
