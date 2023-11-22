@@ -49,9 +49,9 @@ body {
 }
 
 /* Optional: Add styling for hover effect or other interactions */
+/* //* THIS IS USED TO ENABLE HIGHLIGHTING OF TILES VIA MOUSE CURSOR */
 .tiles:hover {
-	background-color: rgb(201, 219, 36);
-	/* Adjust hover background color as needed */
+	background-color: rgb(22, 50, 212);
 	cursor: pointer;
 }
 
