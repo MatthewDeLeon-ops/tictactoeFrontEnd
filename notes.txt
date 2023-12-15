@@ -1,0 +1,15 @@
+src/components: This directory is often used to store individual, reusable visual components. Each component can have its own folder with its JavaScript (or JSX) file, CSS file, and any other related files.
+
+src/pages: This directory is used for creating components that represent entire pages of your application. Each page can have its own folder, similar to the "components" directory, containing the necessary JavaScript, CSS, and other files.
+
+src/App.ts: This is the main entry point for your application and where you typically render your top-level components, such as your main layout or router configuration.
+
+src/index.tsx: This is where your application is typically initialized and the root component is rendered into the DOM.
+
+src/index.css: You can include global styles in this file that will be applied to your entire application.
+
+src/App.css: This is where you can define styles specific to your main layout or application structure.
+
+src/styles: You can create a directory to store global styles or utility classes.
+
+src/assets: You can store static assets like images, fonts, or other files in this directory.

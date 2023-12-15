@@ -6,7 +6,7 @@ import '../components/cellsStyle.css'
 /* //* Using cellStyles.css for styling my components */
 
 interface squareBlocks {
-  children: ReactNode
+  children: React.ReactNode
 }
 
 interface RowProps {
@@ -18,21 +18,11 @@ interface RowProps {
 
 const TilesComponent: React.FC<squareBlocks> = ({ children }) => {
   // State to track whether "X" should be drawn
-  const [drawX, setDrawX] = useState<boolean>(false)
-  const [drawO, setDrawO] = useState<boolean>(false)
+  const [draw, setDraw] = useState<boolean>(false)
   // handleClick function to draw "X"
   const handleClick = () => {
     // Toggle between "X" and "O" on each click
-    if (drawX) {
-      setDrawO(true)
-      setDrawX(false)
-    } else if (drawO) {
-      setDrawX(true)
-      setDrawO(false)
-    } else {
-      // Initial click, default to "X"
-      setDrawX(true)
-    }
+    setDraw(!draw)
   }
 
   // Style for drawing "X"
@@ -43,8 +33,11 @@ const TilesComponent: React.FC<squareBlocks> = ({ children }) => {
 
   return (
     <div className="tiles" onClick={handleClick}>
-      {drawX ? <span style={inputStyle}>X</span> : null}
-      {drawO ? <span style={inputStyle}>O</span> : null}
+      {/* {drawX ? <span style={inputStyle}>X</span> : null}
+      {drawO ? <span style={inputStyle}>O</span> : null} */}
+      <div>
+        {draw ? 'O' : 'X'}
+      </div>
       {children}
     </div>
   )
@@ -86,11 +79,3 @@ const Layout = () => {
 }
 
 export default Layout
-
-/*
-? Create Logic for the ordered Tiles for win/lose conditions
-? ACROSS Tiles: [1,2,3] [4,5,6] [7,8,9]   [x or o] 
-? diagonal: [7,5,3] [9,5,1]               [x or o]
-? Vertical: [1,4,7] [2,5,8] [3,6,9]       [x or o]
-! Any other combination is considered a loss
-*/
