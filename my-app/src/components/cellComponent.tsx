@@ -1,79 +1,83 @@
-//!  React, component names must start with a capital letter
-
 import React, { ReactNode, useState } from 'react'
 import '../components/cellsStyle.css'
 
 /* //* Using cellStyles.css for styling my components */
 
 interface squareBlocks {
-  children: React.ReactNode
+  draw: null | 'X' | 'O'
+  onClick: () => void
+  children: ReactNode
 }
 
 interface RowProps {
   children: React.ReactNode
 }
 
-/* //? Renders a <div> with the class 'tiles' and  its children. */
-//! The hover effect defined in my css file is applied to all elements with the class tiles, including those in my TilesComponent*/
-
-const TilesComponent: React.FC<squareBlocks> = ({ children }) => {
-  // State to track whether "X" should be drawn
-  const [draw, setDraw] = useState<boolean>(false)
-  // handleClick function to draw "X"
-  const handleClick = () => {
-    // Toggle between "X" and "O" on each click
-    setDraw(!draw)
-  }
-
-  // Style for drawing "X"
+interface TilesComponentProps extends squareBlocks {
+  tileIndex: number
+}
+const TilesComponent: React.FC<TilesComponentProps> = ({
+  draw,
+  onClick,
+  tileIndex,
+  children,
+}) => {
   const inputStyle: React.CSSProperties = {
     color: 'white',
     fontSize: '10mm',
   }
-
   return (
-    <div className="tiles" onClick={handleClick}>
-      {/* {drawX ? <span style={inputStyle}>X</span> : null}
-      {drawO ? <span style={inputStyle}>O</span> : null} */}
-      <div>
-        {draw ? 'O' : 'X'}
-      </div>
-      {children}
+    <div className="tiles" onClick={onClick} data-tile-index={tileIndex}>
+      {draw ? <span style={inputStyle}>{children}</span> : null}
     </div>
   )
 }
-
-//? Renders a <div> with a style object defining display properties. This functionally ensures that the squares are displayed in a row. */
-
 const RowComponent: React.FC<RowProps> = ({ children }) => {
   const rowStyle: React.CSSProperties = {
     clear: 'both',
-    display: 'flex', // Ensure that the squares are in a row
+    display: 'flex', // Ensure that the squares are in a row and scales with the html
   }
-
   return <div style={rowStyle}>{children}</div>
 }
 
 //? Layout renders a <div> with the class 'board' containing each row segment which contains each tile in it.
-
 const Layout = () => {
+  //* Create a new array with a length of 9, where all elements are initially set to null
+  //* create a state variable (draw) and a function to update that state (setDraw).
+  //* Specify the type of the state.
+  const [draw, setDraw] = useState<Array<'X' | 'O' | null>>(Array(9).fill(null))
+
+  //* second UseState that'll be used for caching the previous Draw State to alternate the new state.
+  const [isXNext, setIsXNext] = useState<boolean>(true)
+
+  //* Implemented a tileIndex to uniquely identify each tile
+  const handleClick = (tileIndex: number) => {
+    setDraw((prevDraw) => {
+      const newDraw = [...prevDraw]
+      newDraw[tileIndex] = isXNext ? 'X' : 'O'
+      setIsXNext(!isXNext) //? Toggle the flag for the next click
+      return newDraw
+    })
+  }
   return (
     <div className="board">
-      <RowComponent>
-        <TilesComponent> </TilesComponent>
-        <TilesComponent> </TilesComponent>
-        <TilesComponent> </TilesComponent>
-      </RowComponent>
-      <RowComponent>
-        <TilesComponent> </TilesComponent>
-        <TilesComponent> </TilesComponent>
-        <TilesComponent> </TilesComponent>
-      </RowComponent>
-      <RowComponent>
-        <TilesComponent> </TilesComponent>
-        <TilesComponent> </TilesComponent>
-        <TilesComponent> </TilesComponent>
-      </RowComponent>
+      {[0, 1, 2].map((row) => (
+        <RowComponent key={row}>
+          {[0, 1, 2].map((col) => {
+            const tileIndex = row * 3 + col
+            return (
+              <TilesComponent
+                key={tileIndex}
+                draw={draw[tileIndex]}
+                onClick={() => handleClick(tileIndex)}
+                tileIndex={tileIndex}
+              >
+                {draw[tileIndex]}
+              </TilesComponent>
+            )
+          })}
+        </RowComponent>
+      ))}
     </div>
   )
 }
