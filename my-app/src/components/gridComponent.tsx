@@ -10,7 +10,7 @@ class Grid extends React.Component {
     const cellStyle = {
       width: '200px',
       height: '200px',
-      border: '1px solid black',
+      // border: '1px solid black',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -20,7 +20,7 @@ class Grid extends React.Component {
     const grid: any[] = []
 
     //* Generation of the grid
-    //* use nested loops to generate a 3x3 grid of cells. Each cell is a <div> element with a unique key and styled using the cellStyle. The content of each cell is determined by the formula {index * numCols + j + 1}, which generates sequential numbers for each cell. The generated rows are wrapped in an outer <div> with a display: 'flex' style to ensure they are displayed in a ro */
+    //* use nested loops to generate a 3x3 grid of cells. Each cell is a <div> element with a unique key and styled using the cellStyle. The content of each cell is determined by the formula {index * numCols + j + 1}, which generates sequential numbers for each cell. The generated rows are wrapped in an outer <div> with a display: 'flex' style to ensure they are displayed in a row */
     for (let index = 0; index < numRows; index++) {
       const row: any[] = []
       for (let j = 0; j < numCols; j++) {

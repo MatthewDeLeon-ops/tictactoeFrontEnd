@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from 'react'
 import '../components/cellsStyle.css'
 
 /* //* Using cellStyles.css for styling my components */
-
+// * Thought give the ability to have contrasting colors for X | O
 interface squareBlocks {
   draw: null | 'X' | 'O'
   onClick: () => void
@@ -45,17 +45,23 @@ const Layout = () => {
   //* Create a new array with a length of 9, where all elements are initially set to null
   //* create a state variable (draw) and a function to update that state (setDraw).
   //* Specify the type of the state.
+  //!  Make it so that the tiles can't be changed after the value has been set.
+
   const [draw, setDraw] = useState<Array<'X' | 'O' | null>>(Array(9).fill(null))
 
   //* second UseState that'll be used for caching the previous Draw State to alternate the new state.
   const [isXNext, setIsXNext] = useState<boolean>(true)
 
-  //* Implemented a tileIndex to uniquely identify each tile
+  //? tileIndex helps to uniquely identify the position of each tile in each row.
   const handleClick = (tileIndex: number) => {
+    //? setDraw: function to update the state of the Tic Tac Toe board. prevDraw represents the current state of the draw before the update.
     setDraw((prevDraw) => {
+      //? Creating a state array to store the previous states recorded.
       const newDraw = [...prevDraw]
+      // ? Using the state array of previous states (copy of prevDraw) we can use the setIsXNext flag to determine the next players move and update the state.
       newDraw[tileIndex] = isXNext ? 'X' : 'O'
-      setIsXNext(!isXNext) //? Toggle the flag for the next click
+      setIsXNext(!isXNext)
+      //? Outputs the new updatedState of the tic tac toe game is returned
       return newDraw
     })
   }
